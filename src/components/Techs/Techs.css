@@ -1,0 +1,129 @@
+.tech {
+  background-color: #F5F5F5;
+  min-height: 625px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tech__position {
+  width: calc(100vw - 140px);
+  margin: 0 auto;
+}
+
+.tech__textblock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 90px;
+}
+
+.tech__header {
+  font-weight: 400;
+  font-size: 3.57rem;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  margin: 0 0 26px;
+}
+
+.tech__caption {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.43;
+  text-align: center;
+  letter-spacing: -0.04em;
+  max-width: 460px;
+}
+
+.tech__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin: 100px 0 0;
+}
+
+.tech__item {
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  width: 90px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.21;
+  text-align: center;
+  letter-spacing: -0.04em;
+  padding-top: 21px;
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+
+.tech__item:last-child {
+    margin-right: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .tech {
+    min-height: 567px;
+  }
+  .tech__position {
+    width: calc(100vw - 100px);
+  }
+
+  .tech__textblock {
+    margin-top: 80px;
+  }
+  
+  .tech__header {
+    margin: 0 0 22px;
+  }
+
+  .tech__caption {
+    font-size: .86rem;
+    line-height: 1.5;
+  }
+
+  .tech__list {
+    margin-top: 83px;
+  }
+
+  .tech__item {
+    width: 84px;
+    height: 57px;
+    font-size: .86rem;
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .tech {
+    min-height: 651px;
+    background-color: white;
+  }
+
+  .tech__position {    
+    width: calc(100vw - 36px);
+  }
+
+  .tech__textblock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+  }
+  
+  .tech__header {
+    font-size: 2.14rem;
+    line-height: 1.2;
+    margin: 0 0 24px;
+  }
+
+  .tech__list {
+    display: grid;
+    width: 178px;
+    grid-template-columns: repeat(2, 84px);
+    gap: 10px;
+    width: 178px;
+    margin: 50px auto 0;
+  }
+}

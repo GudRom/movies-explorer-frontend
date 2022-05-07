@@ -1,0 +1,119 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile__welcome {
+  font-weight: 500;
+  font-size: 1.71rem;
+  line-height: 1.21;
+  text-align: center;
+  color: #000000;
+  margin: 74px 0 123px;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  width: 410px;
+  align-self: center;
+}
+
+.profile__input-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile__label {
+  font-weight: 500;
+  font-size: 0.79rem;
+  line-height: 1.18;
+  color: #000000;
+  position: relative;
+  flex-basis: 20%;
+}
+
+.profile__input {
+  font-weight: 400;
+  font-size: 0.79rem;
+  line-height: 1.18;
+  color: #000000;
+  border: none;
+  text-align: right;
+  flex-basis: 50%;
+}
+
+.profile__line {
+  width: 100%;
+  border-bottom: #e8e8e8 1px solid;
+  margin: 16px 0 17px;
+}
+
+.profile__edit-button {
+  font-weight: 500;
+  font-size: 0.93rem;
+  line-height: 1.23;
+  color: black;
+  border: none;
+  background-color: transparent;
+  width: max-content;
+  cursor: pointer;
+  align-self: center;
+  margin: 220px 0 16px;
+}
+
+.profile__button {
+  font-weight: 500;
+  font-size: 0.93rem;
+  line-height: 1.23;
+  color: #ff4062;
+  border: none;
+  background-color: transparent;
+  width: max-content;
+  cursor: pointer;
+  align-self: center;
+}
+
+.profile__input:focus {
+  outline: 1px var(--decor-bg-color) dotted;
+}
+
+.profile__edit-button:active {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  color: var(--decor-bg-color);
+}
+
+.profile__button:active {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  color: var(--decor-bg-color);
+}
+
+.profile__edit-button:hover,
+.profile__button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__welcome {
+    margin: 236px 0 96px;
+  }
+
+  .profile__edit-button {
+    margin-top: 210px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile__welcome {
+    margin: 70px 0 80px;
+  }
+
+  .profile__form {
+    max-width: calc(100vw - 60px);
+  }
+
+  .profile__edit-button {
+    margin-top: 379px;
+  }
+}

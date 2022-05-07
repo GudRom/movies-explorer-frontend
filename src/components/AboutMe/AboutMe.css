@@ -1,0 +1,157 @@
+.student {
+  display: flex;
+  flex-direction: column;
+  min-height: 1079px;
+  width: calc(100vw - 140px);
+  margin: 0 auto;
+}
+
+.student__info {
+  display: flex;
+  margin-top: 66px;
+  justify-content: space-between;
+}
+
+.student__textblock {
+  max-width: 600px;
+  margin-right: 20px;
+}
+
+.student__name {
+  font-weight: 400;
+  font-size: 3.57rem;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  margin: 0 0 18px;
+}
+
+.student__prof {
+  font-weight: 500;
+  font-size: 1.29rem;
+  line-height: 1.11;
+}
+
+.student__story {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.57;
+  margin: 26px 0 99px;
+}
+
+.student__social-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.student__social-item {
+  margin-right: 20px;
+}
+
+.student__social-link {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.21;
+  color: #000;
+  text-decoration: none;
+}
+
+.student__photo {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+}
+
+.student__social-item:last-child {
+  margin-right: 0;
+}
+
+.student__social-link:visited {
+  color: #000;
+}
+
+.student__social-link:hover {
+  opacity: 0.8;
+}
+
+.student__social-link:active {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  background-color: var(--decor-bg-color);
+}
+
+
+@media screen and (max-width: 900px) {
+  .student {
+    width: calc(100vw - 100px);
+    min-height: 994px;
+  }
+
+  .student__textblock {
+    max-width: 364px;
+  }
+
+  .student__name {
+    font-size: 2.86rem;
+    line-height: 1;
+    margin: 0 0 16px;
+  }
+
+  .student__prof {
+    font-size: .86rem;
+    line-height: 1.5;
+  }
+
+  .student__photo {
+    width: 255px;
+    height: 307px;
+  }
+
+  .student__story {
+    font-size: .86rem;
+    line-height: 1.5;
+    margin: 20px 0 87px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .student {
+    width: calc(100vw - 28px);
+    min-height: 1198px;
+  }
+
+  .student__info {
+    flex-direction: column-reverse;
+    margin-top: 60px;
+    align-items: center;
+  }
+  .student__textblock {
+    margin-right: 0;
+  }
+
+  .student__name {
+    font-size: 2.14rem;
+    line-height: 1.2;
+    margin: 40px 0 20px;
+  }
+
+  .student__prof {
+    font-size: .79rem;
+    line-height: 1.45;
+  }
+
+  .student__photo {
+    width: 292px;
+    height: 352px;
+  }
+
+  .student__story {
+    font-size: .79rem;
+    line-height: 1.45;
+    margin: 20px 0 40px;
+  }
+
+  .student__social-item {
+    margin-right: 26px;
+  }
+}

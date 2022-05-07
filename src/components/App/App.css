@@ -1,0 +1,9 @@
+:root {
+  font-size: 0.875em;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  --decor-bg-color: #2BE080;
+}
+
+.page {
+  margin: auto;
+}

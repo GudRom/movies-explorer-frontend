@@ -1,0 +1,126 @@
+.popup {
+  position: fixed;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 200ms linear, visibility 0s linear 200ms;
+  justify-content: flex-end;
+}
+
+.popup_active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 300ms linear, visibility 0s linear;
+}
+
+.popup__content {
+  height: 100vh;
+  width: 520px;
+  position: fixed;
+  background-color: white;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.popup__navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 159px;
+}
+
+.popup__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popup__item {
+  margin-bottom: 28px;
+}
+
+.popup__link {
+  cursor: pointer;
+  text-decoration: none;
+  transition: ease-in-out 0.4s;
+  font-weight: 500;
+  font-size: 1.29rem;
+  line-height: 1.22;
+  text-align: center;
+  color: #000;
+}
+
+.popup__link_active {
+  border-bottom: #000 2px solid;
+  padding-bottom: 4px;
+}
+
+.popup__button {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.14;
+  padding: 8px 20px;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+  width: 100px;
+  height: 32px;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  box-sizing: border-box;
+  margin-top: calc((100vh - 90px) * 0.665);
+  margin-bottom: 90px;
+}
+
+.popup__close-button {
+  width: 22px;
+  height: 22px;
+  background-image: url(../../images/close-icon.svg);
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background-color: white;
+  border: none;
+  background-position: center;
+  background-size: contain;
+}
+
+.popup__link:visited {
+  color: black;
+}
+
+.popup__link:hover,
+.popup__button:hover,
+.popup__close-button:hover {
+  opacity: 0.8;
+}
+
+.popup__link:active {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  background-color: var(--decor-bg-color);
+  border-radius: 50%;
+}
+
+.popup__item:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .popup__navigation {
+    margin-top: 144px;
+  }
+
+  .popup__button {
+    margin-top: calc((100vh - 46px) * .604);
+    margin-bottom: 46px;
+  }
+}
