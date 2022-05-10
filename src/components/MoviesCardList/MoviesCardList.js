@@ -13,7 +13,7 @@ function MoviesCardlist(props) {
             />
           ))}
         </ul>
-        <button type="submit" className="movies__more-button">Ещё</button>
+        {props.location.pathname === "/movies" && <button type="submit" className="movies__more-button">Ещё</button>}
     </section>
     )
 }

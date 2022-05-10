@@ -7,7 +7,7 @@ function MoviesCard(props) {
             <img src={props.img} alt="Поиск" className="movies__img"/>
             <div className="movies__overlay">
             {props.location.pathname === "/movies" ? (
-            <button className="movies__save-button"></button>
+            <button className={`movies__save-button ${props._id === 2 && "movies__save-button_saved"}`}></button>
             ):(
               <button className="movies__delete-button"></button>
               )}

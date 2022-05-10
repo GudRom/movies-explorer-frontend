@@ -40,7 +40,7 @@
   padding: 0;
   display: flex;
   justify-content: center;
-  margin: 100px 0 0;
+  margin: 100px auto 0;
 }
 
 .tech__item {
@@ -85,6 +85,7 @@
 
   .tech__list {
     margin-top: 83px;
+    flex-wrap: wrap;
   }
 
   .tech__item {
@@ -92,6 +93,7 @@
     height: 57px;
     font-size: .86rem;
     line-height: 1.25;
+    margin-bottom: 10px;
   }
 }
 

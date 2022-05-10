@@ -13,16 +13,16 @@ function Auth(props) {
                     {props.location.pathname === "/signup" && (
                     <li className="auth__item">
                         <label className="auth__label" htmlFor="name">Имя</label>
-                        <input id="name" name="name" type="text" className="auth__input"></input>
+                        <input id="name" name="name" type="text" className="auth__input" required></input>
                     </li>  
                     )}
                     <li className="auth__item">
                         <label className="auth__label" htmlFor="email">E-mail</label>
-                        <input id="email" name="email" type="email" className="auth__input"></input>
+                        <input id="email" name="email" type="email" className="auth__input" required></input>
                     </li>
                     <li className="auth__item">
                         <label className="auth__label" htmlFor="password">Пароль</label>
-                        <input id="password" name="password" type="password" className="auth__input"></input>
+                        <input id="password" name="password" type="password" className="auth__input" required></input>
                         <span className="auth__error"></span>
                     </li>
                 </ul>

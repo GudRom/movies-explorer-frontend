@@ -45,6 +45,8 @@
 
 .movies__save-button_saved {
   background-image: url(../../images/saved.svg);
+  width: 21px;
+  padding: 0;
 }
 
 .movies__delete-button {
