@@ -1,0 +1,148 @@
+.project {
+  min-height: 608px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 140px);
+  margin: 0 auto;
+}
+
+.project__flexbox {
+  display: flex;
+  margin: 70px 0 110px;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+}
+
+.project__textblock {
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px 0 0;
+}
+
+.project__header {
+  font-weight: 400;
+  font-size: 1.43rem;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  max-width: 100%;
+  margin: 0 0 26px;
+}
+
+.project__text {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.43;
+  margin: 0;
+}
+
+.project__worktime {
+  max-width: 100%;
+}
+
+.project__flex-basis {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project__timeline {
+  flex-basis: 20%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.21;
+  color: #fff;
+  background-color: black;
+  height: 36px;
+  padding-top: 9px;
+  box-sizing: border-box;
+}
+
+.project__timeline_white-big-basis {
+  flex-basis: 80%;
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.project__caption {
+  flex-basis: 20%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.21;
+  height: 36px;
+  padding-top: 9px;
+  box-sizing: border-box;
+  color: #a0a0a0;
+}
+
+.project__caption_big-basis {
+  flex-basis: 80%;
+}
+
+.project__textblock:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .project {
+    width: calc(100vw - 100px);
+    min-height: 585px;
+  }
+
+  .project__flexbox {
+    margin: 70px 0 93px;
+  }
+
+  .project__header {
+    margin: 0 0 22px;
+  }
+
+  .project__text {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .project {
+    width: calc(100vw - 36px);
+    min-height: 641px;
+  }
+
+  .project__flexbox {
+    flex-direction: column;
+    margin: 60px auto;
+  }
+
+  .project__textblock {
+    width: 284px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 56px 0;
+  }
+
+  .project__header {
+    margin: 0 0 16px;
+  }
+
+  .project__text {
+    font-size: 0.79rem;
+    line-height: 1.45;
+  }
+
+  .project__timeline,
+  .project__caption {
+    font-size: 0.79rem;
+    line-height: 0.93;
+    padding-top: 11px;
+  }
+
+  .project__textblock:last-child {
+    margin: 0;
+  }
+}

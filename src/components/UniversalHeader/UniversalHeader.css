@@ -1,0 +1,34 @@
+.universal-block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 110px;
+}
+
+.universal-block__header {
+  font-weight: 400;
+  font-size: 1.57rem;
+  line-height: 1.23;
+  margin: 0 0 23px;
+}
+
+.universal-block__line {
+  border-bottom: 1px solid black;
+}
+
+@media screen and (max-width: 900px) {
+  .universal-block {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .universal-block {
+    margin-top: 70px;
+  }
+
+  .universal-block__header {
+    font-size: 1.29rem;
+    line-height: 1.22;
+    margin: 0 0 28px;
+  }
+}
