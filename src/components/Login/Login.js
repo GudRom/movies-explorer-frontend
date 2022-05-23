@@ -10,7 +10,8 @@ function Login(props) {
             question="Еще не зарегистрированы?"
             linkText="Регистрация"
             linkTo="/signup"
-            location={props.location}
+            authMessage={props.authMessage}
+            handleLogin={props.handleLogin}
         />
         </>
     )

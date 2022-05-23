@@ -2,6 +2,7 @@ import React from "react";
 import Auth from "../Auth/Auth";
 
 function Register(props) {
+
     return (
         <>
         <Auth 
@@ -10,7 +11,8 @@ function Register(props) {
             question="Уже зарегистрированы?"
             linkText="Войти"
             linkTo="/signin"
-            location={props.location}
+            authMessage={props.authMessage}
+            handleRegistration={props.handleRegistration}
         />
         </>
     )
