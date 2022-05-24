@@ -83,10 +83,7 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    if (movies & location.pathname === "/movies") { 
-      getColumns() }
-      if (ownMovies & location.pathname === "/saved-movies") { 
-        getColumns() }
+      getColumns();
   }, [])
 
   React.useEffect(() => {
@@ -117,10 +114,11 @@ function App() {
 
   // Считаем количество столбцов и записываем в стейт
   const getColumns = () => {
-    const grid = document.querySelector('.movies__list');
-    let columns = window.getComputedStyle(grid).getPropertyValue("grid-template-columns").split(" ").length;
-    setGridColumns(columns);
-    window.innerWidth < 500 && setGridRows(5);
+    if (movies & location.pathname === "/movies" || ownMovies & location.pathname === "/saved-movies") { 
+      const grid = document.querySelector('.movies__list');
+      let columns = window.getComputedStyle(grid).getPropertyValue("grid-template-columns").split(" ").length;
+      setGridColumns(columns);
+      window.innerWidth < 500 && setGridRows(5); }
   }
 
   const getCurrentCards = (arrMovies) => {
