@@ -87,7 +87,6 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    if (localStorage.getItem("jwt")) {
       api
         .checkToken()
         .then((res) => {
@@ -99,9 +98,9 @@ function App() {
         .catch((err) => {
           console.log(err);
           setIsLog(true);
+          localStorage.removeItem("jwt");
       });
-    }
-  }, [isLog]);
+  }, [isLog, loggedIn]);
 
   React.useEffect(() => {
     api
@@ -256,7 +255,9 @@ function App() {
       .then((data) => {
         localStorage.setItem('jwt', data.jwt);
         setLoggedIn(true);
-        navigate("/movies")
+        setTimeout(() => {
+          navigate("/movies");
+        }, 10);
       })
       .catch((err) => {
         console.log(err);
@@ -292,7 +293,8 @@ function App() {
         loggedIn={loggedIn}
         isOpen={isMenuPopupOpen}
         onOpenPopup={handleMenuPopupClick}
-      />)}
+      />)}      
+      {isLog ? 
       <Routes>
         <Route path="/" 
           element={
@@ -305,8 +307,6 @@ function App() {
           </>
           }
         />
-        {isLog ? 
-        <>
           <Route path="/movies"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
@@ -370,7 +370,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          </> : null}
         <Route path="/signin"
           element={
             loggedIn ? <Navigate to="/" /> : <Login
@@ -392,7 +391,7 @@ function App() {
             <PageNotFound />
           }
         />
-      </Routes>
+      </Routes> : null}
       {pathWithFooter.includes(location.pathname) && (<Footer />)}
       </CurrentUserContext.Provider>
     </>
