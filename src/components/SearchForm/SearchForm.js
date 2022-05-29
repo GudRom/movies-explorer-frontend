@@ -20,7 +20,7 @@ function SearchForm(props) {
                 props.setInfoText("Нужно ввести ключевое слово");                
             }
         } else if (props.inputSavedMoviesTitle !== "") { 
-            props.getSavedMoviesCard()
+            props.searchSavedMoviesCard()
         } else {
             props.setSavedMoviesInfoText("Нужно ввести ключевое слово");                
         }

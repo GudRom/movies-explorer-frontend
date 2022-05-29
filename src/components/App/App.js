@@ -12,6 +12,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
 import filterSearch from '../../utils/FilterSearch';
+import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import beatFilmApi from '../../utils/MoviesApi';
 import api from '../../utils/MainApi';
 import ProtectedRoute from '../../utils/ProtectedRoute';
@@ -20,22 +21,24 @@ import ProtectedRoute from '../../utils/ProtectedRoute';
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [isLog, setIsLog] = React.useState(false);
   const [movies, setMovies] = React.useState([]);  
   const [ownMovies, setOwnMovies] = React.useState([]);
   const [inputTitle, setInputTitle] = React.useState("");
   const [inputSavedMoviesTitle, setInputSavedMoviesTitle] = React.useState("");
-  const [check, setCheck] = React.useState(false);
-  const [checkSavedMovies, setCheckSavedMovies] = React.useState(false);
   const [infoText, setInfoText] = React.useState("");
   const [savedMoviesInfoText, setSavedMoviesInfoText] = React.useState("");
+  const [authMessage, setAuthMessage] = React.useState("");
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+  const [isErrorPopupOpen, setIsErrorPopupOpen] = React.useState(false);
+  const [check, setCheck] = React.useState(false);
+  const [checkSavedMovies, setCheckSavedMovies] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isLog, setIsLog] = React.useState(false);
   const [preloader, setPreloader] = React.useState(false);
+  const [isActiveReq, setIsActiveReq] = React.useState(false);
   const [gridColumns, setGridColumns] = React.useState(3);
   const [gridRows, setGridRows] = React.useState(4);
-  const [authMessage, setAuthMessage] = React.useState("");
   const lastCard = gridColumns * gridRows;
   const pathWithHeader = [
     '/',
@@ -61,9 +64,8 @@ function App() {
       if (localStorage.inputTitle) { setInputTitle(JSON.parse(localStorage.inputTitle)); }
       if (localStorage.check) { setCheck(JSON.parse(localStorage.check)); }
       if (localStorage.foundMovies) { setMovies(JSON.parse(localStorage.foundMovies)); }
-      if (localStorage.inputCheckSavedMovies) { setCheckSavedMovies(JSON.parse(localStorage.inputCheckSavedMovies)); }
-      if (localStorage.SavedMoviesTitle) { setInputSavedMoviesTitle(JSON.parse(localStorage.inputSavedMoviesTitle)); }
-      if (localStorage.savedMovies) { setOwnMovies(JSON.parse(localStorage.savedMovies)); }
+      if (localStorage.сheckSavedMovies) { setCheckSavedMovies(JSON.parse(localStorage.сheckSavedMovies)); }
+      if (localStorage.inputSavedMoviesTitle) { setInputSavedMoviesTitle(JSON.parse(localStorage.inputSavedMoviesTitle)); }
   }, [])
 
   React.useEffect(() => {
@@ -74,17 +76,24 @@ function App() {
 
   React.useEffect(() => {
     if (inputSavedMoviesTitle) {   
-    searchSavedMoviesCard();
+      searchSavedMoviesCard();
     }
   }, [checkSavedMovies])
 
   React.useEffect(() => {
-    getSavedMoviesCard();
-  }, [])
-
-  React.useEffect(() => {
-      getColumns();
-  }, [])
+    if (loggedIn) {
+      api
+        .getMovies()
+        .then((movie) => {
+          setOwnMovies(movie);
+          localStorage.setItem('savedMovies', JSON.stringify(movie));
+        })
+        .catch((err) => {
+          console.log(err);
+          setInfoText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+        });
+      }
+}, [loggedIn])
 
   React.useEffect(() => {
       api
@@ -93,6 +102,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setIsLog(true);
+            getColumns();
           }
         })
         .catch((err) => {
@@ -113,7 +123,7 @@ function App() {
 
   // Считаем количество столбцов и записываем в стейт
   const getColumns = () => {
-    if (movies & location.pathname === "/movies" || ownMovies & location.pathname === "/saved-movies") { 
+    if (((movies.length !== 0) & location.pathname === "/movies") || ((ownMovies.length !== 0) & location.pathname === "/saved-movies")) {
       const grid = document.querySelector('.movies__list');
       let columns = window.getComputedStyle(grid).getPropertyValue("grid-template-columns").split(" ").length;
       setGridColumns(columns);
@@ -173,6 +183,7 @@ function App() {
       .then((movie) => {
         localStorage.setItem('movie', JSON.stringify(movie));
         searchMoviesCard();
+        getColumns();
       })
       .catch((err) => {
         console.log(err);
@@ -180,22 +191,8 @@ function App() {
       });
     } else {
       searchMoviesCard();
+      getColumns();
     }
-  }
-  
-  function getSavedMoviesCard() {
-    setPreloader(true);
-    api
-      .getMovies()
-      .then((movie) => {
-        localStorage.setItem('savedMovies', JSON.stringify(movie.filter((f) => f.owner === currentUser._id)));
-        searchSavedMoviesCard();
-        setPreloader(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setInfoText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
-      });
   }
 
     // Отправляем запрос в API и сохраняем фильм в нашу базу
@@ -205,7 +202,10 @@ function App() {
       .then((newMovie) => {
         setOwnMovies([...ownMovies, newMovie]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsErrorPopupOpen(true);
+      });
   }
 
     // Отправляем запрос в API и удаляем фильм, создаем копию массива, исключив удаленную карточку
@@ -213,9 +213,12 @@ function App() {
     api
       .deleteMovie(movie._id)
       .then(() => {
-        setOwnMovies((state) => state.filter((c) => c._id !== movie._id));
+        setOwnMovies((state) => state.filter((film) => film._id !== movie._id)); 
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsErrorPopupOpen(true);
+      });
   }
 
   function toggleSaveButton(movie) {
@@ -233,9 +236,8 @@ function App() {
 
   function closePopup() {
     setIsMenuPopupOpen(false);
+    setIsErrorPopupOpen(false);
   }
-
-
 
   function handleRegistration(name, email, password) {
     api
@@ -266,15 +268,20 @@ function App() {
   }
 
   function updateUserInfo(name, email) {
+    setIsActiveReq(true);
     api
       .updateProfile(name, email)
       .then((info) => {
-        setCurrentUser(info)
+        setCurrentUser(info);
+        setIsActiveReq(false);
         setAuthMessage("Данные обновились");
+        setTimeout(() => {          
+          setAuthMessage("");
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
-        setAuthMessage("Такой email уже существует");
+        setAuthMessage("Такой email уже существует или что-то пошло не так");
       });
   }
 
@@ -282,7 +289,13 @@ function App() {
   function logout() {
     setCurrentUser({});
     setLoggedIn(false);
-    localStorage.removeItem('jwt');
+    setInputTitle("");
+    setCheck(false);
+    setMovies([]);
+    setOwnMovies([]);
+    setCheckSavedMovies(false);
+    setInputSavedMoviesTitle("");
+    localStorage.clear();
     navigate("/");
   }
 
@@ -329,6 +342,10 @@ function App() {
                   isOpen={isMenuPopupOpen}
                   onClose={closePopup}
                 />
+                <ErrorPopup 
+                  isOpen={isErrorPopupOpen}
+                  onClose={closePopup} 
+                />
               </ProtectedRoute>
             }
           />
@@ -338,7 +355,7 @@ function App() {
                 <SavedMovies             
                   movies={movies}
                   ownMovies={ownMovies}
-                  getSavedMoviesCard={getSavedMoviesCard}
+                  searchSavedMoviesCard={searchSavedMoviesCard}
                   preloader={preloader}
                   removeMovie={removeMovie}
                   setInputSavedMoviesTitle={setInputSavedMoviesTitle}
@@ -352,6 +369,10 @@ function App() {
                   isOpen={isMenuPopupOpen}
                   onClose={closePopup} 
                 />
+                <ErrorPopup 
+                  isOpen={isErrorPopupOpen}
+                  onClose={closePopup} 
+                />
               </ProtectedRoute>
             }
           />
@@ -362,6 +383,7 @@ function App() {
                   logout={logout}
                   updateUserInfo={updateUserInfo} 
                   authMessage={authMessage}
+                  isActiveReq={isActiveReq}
                   />
                 <Navigation 
                   isOpen={isMenuPopupOpen}

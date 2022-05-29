@@ -13,19 +13,29 @@ function MoviesCard(props) {
     props.removeMovie(props.ownMovie);
   }
 
+  const checkLocationOnClick = () => {
+    if (location.pathname === "/movies") {
+      return handleSaveClick();
+    } 
+    return handleRemoveClick();
+  }
+
 
   return (
     <li className="movies__card">
         <div className="movies__poster">
             <img src={`https://api.nomoreparties.co${location.pathname === "/movies" ? props.image.url : props.image}`} alt={props.nameRU} className="movies__img"/>
-            <div className="movies__overlay">
+            {isSaved ? (
+              <>
               <a className="movies__trailer-link" href={props.trailerLink} target="_blank" rel="noopener noreferrer"></a>
-              {location.pathname === "/movies" ? (
-                <button className={`movies__save-button ${isSaved && "movies__save-button_saved"}`} onClick={handleSaveClick}></button>
-              ):(
-                <button className="movies__delete-button" onClick={handleRemoveClick}></button>
-              )}
-            </div>
+              <button className={`movies__save-button movies__save-button_saved ${location.pathname === "/saved-movies" && "movies__delete-button"}`} onClick={checkLocationOnClick}></button>
+              </>
+            ) : (
+              <div className="movies__overlay">
+                <a className="movies__trailer-link" href={props.trailerLink} target="_blank" rel="noopener noreferrer"></a>
+                <button className={`movies__save-button ${location.pathname === "/saved-movies" && "movies__delete-button"}`} onClick={checkLocationOnClick}></button>
+              </div>
+            )}
         </div>
         <div className="movies__title">
             <p className="movies__name">{props.nameRU}</p>

@@ -36,7 +36,7 @@ function Auth(props) {
                     {location.pathname === "/signup" && (
                     <li className="auth__item">
                         <label className="auth__label" htmlFor="name">Имя</label>
-                        <input id="name" name="name" type="text" className="auth__input" required onChange={handleChangeName} value={name} minLength={2} maxLength={30}></input>
+                        <input id="name" name="name" type="text" className="auth__input" required onChange={handleChangeName} value={name}></input>
                         {errorName !== "" && <span className="auth__error">{errorName}</span>}
                     </li>  
                     )}

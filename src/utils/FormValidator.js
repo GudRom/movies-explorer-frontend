@@ -34,9 +34,12 @@ export function useFormWithValidation() {
     const handleChangeName = (evt) => {
         setName(evt.target.value);
         const regexp = /^[a-zа-яё\-\ ]+$/i;
-        if (regexp.test(evt.target.value)) {
+        if (regexp.test(evt.target.value) & evt.target.value.length > 2 & evt.target.value.length < 30) {
             setIsValidName(true);
             setErrorName("");
+        } else if (evt.target.value.length === 0) {
+            setIsValidName(false);
+            setErrorName("Нужно заполнить");
         } else {
             setIsValidName(false);
             setErrorName("Поле name содержит только латиницу, кириллицу, пробел или дефис. Минимум 2 символа, максимум 30");
@@ -45,23 +48,30 @@ export function useFormWithValidation() {
 
     const handleChangeEmail = (evt) => {
         setEmail(evt.target.value);
-        if (evt.target.validity.valid) {
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i;
+        if (emailRegex.test(evt.target.value)) {
             setIsValidEmail(true);
             setErrorEmail("");
+        } else if (evt.target.value.length === 0) {            
+            setIsValidEmail(false);
+            setErrorEmail("Нужно заполнить");
         } else {
             setIsValidEmail(false);
-            setErrorEmail(evt.target.validationMessage);
+            setErrorEmail("Не похоже на email");
         }
-    };
+      };
 
     const handleChangePassword = (evt) => {
         setPassword(evt.target.value);
-        if (evt.target.validity.valid) {
+        if (evt.target.value.length >= 8) {
             setIsValidPassword(true);
             setErrorPassword("");
+        } else if (evt.target.value.length === 0) {
+            setIsValidPassword(false);
+            setErrorPassword("Нужно заполнить");
         } else {
             setIsValidPassword(false);
-            setErrorPassword(evt.target.validationMessage);
+            setErrorPassword("Слишком короткий...");
         }
     };
 

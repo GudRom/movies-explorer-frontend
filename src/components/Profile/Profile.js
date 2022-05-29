@@ -16,17 +16,17 @@ function Profile(props) {
   }, [currentUser]);
 
   React.useEffect(() => {
-      if (isValidEmail & isValidName) {
+      if (!props.isActiveReq && isValidName && (isValidEmail || (currentUser.email === email)) && ((currentUser.name !== name) || (currentUser.email !== email))) {
           setIsValidForm(true);
       } else {
           setIsValidForm(false);
       }
-  }, [isValidEmail, isValidName])
+  }, [isValidEmail, isValidName, name, email])
 
   const handleChangeName = (evt) => { 
     setName(evt.target.value);
     const regexp = /^[a-zа-яё\-\ ]+$/i;
-    if (regexp.test(evt.target.value) & (currentUser.name !== evt.target.value)) {
+    if (regexp.test(evt.target.value) && evt.target.value.length > 2 && evt.target.value.length < 30) {
             setIsValidName(true);
             setErrorName("");
     } else {
@@ -37,12 +37,13 @@ function Profile(props) {
   
   const handleChangeEmail = (evt) => {
     setEmail(evt.target.value);
-    if (evt.target.validity.valid & (currentUser.email !== evt.target.value)) {
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i;
+    if (emailRegex.test(evt.target.value)) {
         setIsValidEmail(true);
         setErrorEmail("");
     } else {
         setIsValidEmail(false);
-        setErrorEmail(evt.target.validationMessage);
+        setErrorEmail("Не подходит");
     }
   };
 
@@ -57,7 +58,7 @@ function Profile(props) {
             <form className="profile__form" onSubmit={handleSubmit}>
                 <div className="profile__input-box">
                     <label className="profile__label" htmlFor="profile-name">Имя</label>
-                    <input type="text" className="profile__input" id="profile-name" minLength={2} maxLength={30} onChange={handleChangeName} value={name || ""} required/>
+                    <input type="text" className="profile__input" id="profile-name" onChange={handleChangeName} value={name || ""} required/>
                 </div>
                 <div className="profile__line"></div>
                 <div className="profile__input-box">

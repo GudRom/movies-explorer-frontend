@@ -8,6 +8,7 @@ function SavedMovies(props) {
     <>
         <SearchForm 
             getSavedMoviesCard={props.getSavedMoviesCard}
+            searchSavedMoviesCard={props.searchSavedMoviesCard}
             setInputSavedMoviesTitle={props.setInputSavedMoviesTitle}
             checkSavedMovies={props.checkSavedMovies}
             inputSavedMoviesTitle={props.inputSavedMoviesTitle}
