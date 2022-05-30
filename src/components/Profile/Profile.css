@@ -63,6 +63,14 @@
   margin: 220px 0 16px;
 }
 
+.profile__error {
+  font-weight: 400;
+  font-size: 0.93rem;
+  line-height: 1.23;
+  color: #ff4062;
+  margin-top: 10px;
+}
+
 .profile__button {
   font-weight: 500;
   font-size: 0.93rem;
@@ -91,7 +99,12 @@
 
 .profile__edit-button:hover,
 .profile__button:hover {
-  opacity: 0.8;
+  opacity: .8;
+}
+
+.profile__edit-button:disabled {
+  opacity: .5;
+  cursor: default;
 }
 
 @media screen and (max-width: 900px) {

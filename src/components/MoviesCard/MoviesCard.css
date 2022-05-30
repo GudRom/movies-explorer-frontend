@@ -15,6 +15,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
+  border-radius: 6px;
 }
 
 .movies__overlay {
@@ -30,9 +31,18 @@
   cursor: pointer;
 }
 
+.movies__trailer-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;  
+  z-index: 1;
+}
+
 .movies__save-button {
   position: absolute;
-  z-index: 1;
+  z-index: 99;
   top: 14px;
   right: 14px;
   width: 72px;
@@ -46,11 +56,13 @@
 .movies__save-button_saved {
   background-image: url(../../images/saved.svg);
   width: 21px;
-  padding: 0;
+  padding: 0;  
+  z-index: 99;
 }
 
 .movies__delete-button {
-  position: absolute;
+  position: absolute;  
+  z-index: 99;
   top: 14px;
   right: 14px;
   background-image: url(../../images/delete-icon.svg);
@@ -70,7 +82,7 @@
 }
 
 .movies__name {
-  max-width: 250px;
+  max-width: 205px;
   font-weight: 500;
   font-size: 0.93rem;
   line-height: 1.23;
